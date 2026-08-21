@@ -1,0 +1,772 @@
+'use client';
+
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { FloatingParticles } from '@/components/ui/floating-particles';
+import { SomaLogo } from '@/components/ui/soma-logo';
+import { WellnessGradientBackground } from '@/components/ui/wellness-gradient-background';
+import { useRouter } from 'next/navigation';
+import { 
+  Heart, 
+  Sparkles, 
+  ArrowRight, 
+  Brain, 
+  Activity,
+  Shield,
+  Database,
+  Award,
+  Users,
+  Quote,
+  HelpCircle,
+  CheckCircle,
+  Target,
+  Lightbulb,
+  Edit3,
+  Play,
+  ChevronDown,
+  ChevronUp
+} from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useClerk, useAuth } from '@clerk/nextjs';
+
+export default function Home() {
+  const router = useRouter();
+  const { signOut } = useClerk();
+  const { isSignedIn } = useAuth();
+  const [showSanskrit, setShowSanskrit] = useState(true);
+  const [openFAQ, setOpenFAQ] = useState<number | null>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Handle scroll for dynamic navbar
+  useEffect(() => {
+    // Check initial scroll position to prevent flash
+    const checkInitialScroll = () => {
+      if (typeof window !== 'undefined') {
+        setIsScrolled(window.scrollY > 50);
+      }
+    };
+
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setIsScrolled(scrollTop > 50);
+    };
+
+    // Set initial state
+    checkInitialScroll();
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Meditative quotes for cycling
+  const quotes = [
+    {
+      id: "english-quote",
+      text: "Every mental knot has a corresponding physical, muscular knot.",
+      author: "",
+      isEnglish: true
+    },
+    {
+      id: "sanskrit-quote", 
+      text: "मानसिकं बन्धं शरीरिकं स्नायविकं बन्धं समं भवति",
+      author: "- Satyananda Saraswati",
+      isEnglish: false
+    }
+  ];
+
+
+  // Horizontal Human Body Silhouette (lying down)
+  const HorizontalBodySilhouette = () => (
+    <svg 
+      width="300" 
+      height="120" 
+      viewBox="0 0 300 120" 
+      className="mx-auto opacity-30"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs>
+        <linearGradient id="horizontalBodyGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#E5E5E5" stopOpacity="0.2"/>
+          <stop offset="50%" stopColor="#E5E5E5" stopOpacity="0.4"/>
+          <stop offset="100%" stopColor="#E5E5E5" stopOpacity="0.2"/>
+        </linearGradient>
+      </defs>
+      
+      {/* Head */}
+      <ellipse cx="270" cy="60" rx="20" ry="25" fill="url(#horizontalBodyGradient)" stroke="#E5E5E5" strokeWidth="1"/>
+      
+      {/* Neck */}
+      <rect x="245" y="55" width="15" height="10" fill="url(#horizontalBodyGradient)" stroke="#E5E5E5" strokeWidth="1"/>
+      
+      {/* Torso */}
+      <ellipse cx="170" cy="60" rx="60" ry="30" fill="url(#horizontalBodyGradient)" stroke="#E5E5E5" strokeWidth="1"/>
+      
+      {/* Arms */}
+      <ellipse cx="150" cy="35" rx="30" ry="8" fill="url(#horizontalBodyGradient)" stroke="#E5E5E5" strokeWidth="1"/>
+      <ellipse cx="150" cy="85" rx="30" ry="8" fill="url(#horizontalBodyGradient)" stroke="#E5E5E5" strokeWidth="1"/>
+      
+      {/* Pelvis */}
+      <ellipse cx="100" cy="60" rx="20" ry="25" fill="url(#horizontalBodyGradient)" stroke="#E5E5E5" strokeWidth="1"/>
+      
+      {/* Legs */}
+      <ellipse cx="50" cy="50" rx="40" ry="12" fill="url(#horizontalBodyGradient)" stroke="#E5E5E5" strokeWidth="1"/>
+      <ellipse cx="50" cy="70" rx="40" ry="12" fill="url(#horizontalBodyGradient)" stroke="#E5E5E5" strokeWidth="1"/>
+    </svg>
+  );
+
+
+
+  const solutionCards = [
+    {
+      icon: CheckCircle,
+      title: 'Decode Physical Mysteries',
+      benefit: 'No more wondering why stress gives you headaches',
+      result: 'Get clear connections between your emotions and physical symptoms',
+      color: 'from-green-500 to-emerald-600'
+    },
+    {
+      icon: Target,
+      title: 'Transform Journaling Into Insights',
+      benefit: 'Turn venting into actionable body awareness',
+      result: 'See exactly where your emotions live in your body',
+      color: 'from-teal-500 to-cyan-600'
+    },
+    {
+      icon: Lightbulb,
+      title: 'Go Beyond Basic Mood Tracking',
+      benefit: 'Get personalized mind-body intelligence',
+      result: 'Understand what to do about your emotional patterns',
+      color: 'from-blue-500 to-indigo-600'
+    },
+  ];
+
+  const howItWorksSteps = [
+    {
+      icon: Edit3,
+      title: 'Journal Freely',
+      description: 'Write about your day, your feelings, and your thoughts. No prompts, no rules.',
+      technical: 'Advanced AI processes your natural writing to understand emotional context',
+      position: 'top-right',
+      color: 'from-blue-500 to-indigo-600'
+    },
+    {
+      icon: Brain,
+      title: 'Proprietary AI Analysis',
+      description: 'Our machine learning system analyzes your text using proprietary algorithms trained on extensive emotion research.',
+      technical: 'Clinical-grade accuracy identifies complex emotional patterns in real-time',
+      position: 'bottom-left',
+      color: 'from-purple-500 to-pink-600'
+    },
+    {
+      icon: Heart,
+      title: 'Body Mapping Intelligence',
+      description: 'Research-backed algorithms translate emotions into personalized body maps with actionable wellness insights.',
+      technical: 'Combines multiple clinical studies with advanced AI for personalized recommendations',
+      position: 'bottom-right',
+      color: 'from-green-500 to-teal-600'
+    },
+  ];
+
+  const faqItems = [
+    {
+      question: "Is my journal data private and secure?",
+      answer: "Your privacy is our top priority. We use Supabase with end-to-end encryption to ensure your journal entries remain completely private. Your data is encrypted before it leaves your device, and only you have the decryption key."
+    },
+    {
+      question: "How accurate is the AI analysis?",
+      answer: "Our AI is powered by a fine-tuned model trained on extensive emotional research. While it provides clinical-grade insights with high accuracy, it continuously learns and improves from aggregate patterns. Think of it as a highly educated assistant that gets better over time."
+    },
+    {
+      question: "Is this a replacement for medical advice?",
+      answer: "No. SomaJournal is a wellness tool designed for self-awareness and emotional understanding. While it can help you identify patterns between emotions and physical symptoms, it is not a medical diagnostic tool and should not replace professional medical advice."
+    },
+    {
+      question: "How quickly will I see results?",
+      answer: "Most users report gaining valuable insights within their first week of consistent journaling. The AI needs just a few entries to start identifying patterns, but deeper insights emerge with regular use over 2-3 weeks."
+    },
+    {
+      question: "What makes this different from other journaling apps?",
+      answer: "Unlike basic mood trackers or traditional journals, SomaJournal uses advanced AI to reveal the hidden connections between your emotions and physical symptoms. It's the only app that provides psychosomatic insights backed by clinical research."
+    },
+    {
+      question: "Can I export my data?",
+      answer: "Yes! You own your data. You can export all your journal entries, analyses, and insights at any time in multiple formats including PDF and CSV."
+    }
+  ];
+
+  const testimonials = [
+    {
+      name: 'Sarah',
+      age: 28,
+      quote: 'Finally understand why stress gives me headaches',
+      icon: Brain,
+      color: 'from-purple-400 to-indigo-500'
+    },
+    {
+      name: 'Mike',
+      age: 31,
+      quote: 'My anxiety stomach pain makes sense now',
+      icon: Activity,
+      color: 'from-orange-400 to-red-500'
+    },
+    {
+      name: 'Lisa',
+      age: 26,
+      quote: 'Stopped my tension headaches by addressing root emotions',
+      icon: Heart,
+      color: 'from-green-400 to-teal-500'
+    },
+  ];
+
+
+  return (
+    <>
+      <main className="opal-wrapper min-h-screen">
+        <WellnessGradientBackground intensity="vibrant" />
+        <FloatingParticles count={20} />
+      
+      {/* Dynamic Navbar */}
+      <header className="fixed top-0 left-0 right-0 z-100 w-full" style={{ padding: '22px 24px' }}>
+        <div className="max-w-6xl mx-auto relative z-10">
+          <div className="relative grid grid-cols-[1fr_2fr_1fr] items-center">
+            {/* Logo Section - Fade out on scroll */}
+            <div className={`flex items-center space-x-2 justify-self-start transition-opacity duration-700 ease-out ${
+              isScrolled ? 'opacity-0 pointer-events-none' : 'opacity-100'
+            }`}>
+              <SomaLogo size="sm" className="breathing-element" priority />
+              <div className="flex flex-col justify-center">
+                <h1 className="text-lg font-bold leading-tight">
+                  <span className="text-slate-800">Soma</span><span className="text-slate-700">Journal</span>
+                </h1>
+              </div>
+            </div>
+
+            {/* Navigation Pill - Always centered */}
+            <div className={`justify-self-center transition-[max-width] duration-700 ease-out ${
+              isScrolled ? 'max-w-2xl' : 'max-w-xl'
+            }`}>
+              <nav className="bg-white/15 backdrop-blur-[12px] border border-white/20 rounded-full pl-2 pr-1.5 py-1.5">
+                <div className="flex items-center h-full">
+                  {/* Navigation Items */}
+                  <div className="flex items-center space-x-6 px-6">
+                    <a href="#" className="text-slate-700 hover:text-slate-900 transition-colors duration-200 font-medium">Our Story</a>
+                    <a href="#" className="text-slate-700 hover:text-slate-900 transition-colors duration-200 font-medium">Testimonials</a>
+                    <a href="#" className="text-slate-700 hover:text-slate-900 transition-colors duration-200 font-medium">Features</a>
+                    <a href="#" className="text-slate-700 hover:text-slate-900 transition-colors duration-200 font-medium">Pricing</a>
+                  </div>
+
+                  {/* Get Started Button - Inside pill when scrolled */}
+                  {isScrolled && (
+                    <button
+                      onClick={() => router.push('/auth/signup')}
+                      className="ml-auto bg-white text-slate-900 hover:bg-amber-50 hover:shadow-md font-bold rounded-r-full rounded-l-3xl transition-all duration-200 px-6 py-2.5 text-sm -mr-1.5 -my-1.5"
+                    >
+                      Get Started
+                    </button>
+                  )}
+                </div>
+              </nav>
+            </div>
+
+            {/* Right Actions - Fade out on scroll */}
+            <div className={`flex items-center space-x-4 justify-self-end transition-opacity duration-700 ease-out ${
+              isScrolled ? 'opacity-0 pointer-events-none' : 'opacity-100'
+            }`}>
+              {isSignedIn ? (
+                <>
+                  <Button
+                    variant="ghost"
+                    onClick={() => router.push('/dashboard')}
+                    className="hidden sm:inline-flex text-slate-700 hover:text-slate-900 hover:bg-slate-900/10 rounded-full px-4 py-2 font-medium transition-all duration-200 text-sm"
+                  >
+                    Dashboard
+                  </Button>
+                  <Button
+                    onClick={() => signOut({ redirectUrl: '/' })}
+                    className="relative overflow-hidden bg-red-600 hover:bg-red-700 text-white font-semibold rounded-full transition-colors duration-200 px-4 py-2 text-sm"
+                  >
+                    <span className="relative z-10">Test Sign Out</span>
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button
+                    variant="ghost"
+                    onClick={() => router.push('/auth/login')}
+                    className="hidden sm:inline-flex text-slate-700 hover:text-slate-900 hover:bg-slate-900/10 rounded-full px-4 py-2 font-medium transition-all duration-200 text-sm"
+                  >
+                    Sign In
+                  </Button>
+                  <Button
+                    onClick={() => router.push('/auth/signup')}
+                    className="relative overflow-hidden bg-white text-slate-900 font-semibold rounded-full transition-colors duration-200 px-4 py-2 text-sm"
+                  >
+                    <span className="relative z-10">Get Started</span>
+                  </Button>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* OPAL Hero Section - Full Screen */}
+      <div className="opal-hero-container full-bleed relative z-10 pt-24">
+        <div className="opal-wrapper w-full">
+          <div className="flex flex-col items-center text-center space-y-16">
+            {/* Chakra Mandala with Parallax */}
+            <div className="opal-parallax-wrapper relative inline-flex items-center justify-center mb-12">
+              <div className="opal-parallax-element absolute inset-0 animate-spin-slow" style={{ "--movement": "20px" } as React.CSSProperties}>
+                <div className="w-32 h-32 rounded-full border-2 border-gradient-to-r from-green-200 via-emerald-200 to-teal-200 opacity-30"></div>
+              </div>
+              <div className="opal-parallax-element w-28 h-28 bg-gradient-to-br from-green-500 via-emerald-600 to-teal-500 rounded-full flex items-center justify-center breathing-element shadow-2xl" style={{ "--movement": "15px" } as React.CSSProperties}>
+                <div className="w-20 h-20 bg-gradient-to-br from-white/20 to-white/5 rounded-full flex items-center justify-center">
+                  <Sparkles className="w-10 h-10 text-white" />
+                </div>
+              </div>
+            </div>
+            
+            <div className="space-y-8 max-w-6xl">
+              {/* Main Heading with OPAL reveal effect */}
+              <h1 className="text-7xl font-medium leading-[1.1] tracking-tight">
+                <span className="gradient-text-shine">
+                  Map Your Mind.
+                </span>
+                {' '}
+                <span className="gradient-text-shine">
+                  Heal Your Body.
+                </span>
+              </h1>
+              
+              <p className="text-2xl text-white max-w-2xl mx-auto leading-[1.4] font-light drop-shadow-lg">
+                The first intelligent journal that uses AI to decode your emotional patterns and reveal their direct impact on your physical well-being.
+              </p>
+              
+              {/* Trust Badges */}
+              <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 mt-8">
+                <div className="flex items-center space-x-3 px-6 py-3 bg-white/95 backdrop-blur-sm rounded-full border border-white/40 shadow-lg">
+                  <Heart className="w-5 h-5 text-green-600" />
+                  <span className="text-lg text-green-700 font-semibold">Join 1,200+ users</span>
+                </div>
+                
+                <div className="flex items-center space-x-3 px-6 py-3 bg-white/95 backdrop-blur-sm rounded-full border border-white/40 shadow-lg">
+                  <Database className="w-5 h-5 text-blue-600" />
+                  <span className="text-lg text-blue-700 font-semibold">Built on 58,000+ emotional expressions</span>
+                </div>
+                
+                <div className="flex items-center space-x-3 px-6 py-3 bg-white/95 backdrop-blur-sm rounded-full border border-white/40 shadow-lg">
+                  <Shield className="w-5 h-5 text-slate-600" />
+                  <span className="text-lg text-slate-700 font-semibold">Clinically validated</span>
+                </div>
+              </div>
+            </div>
+            
+            <div className="flex justify-center pt-6">
+              <Button
+                size="lg"
+                onClick={() => router.push('/auth/signup')}
+                className="wellness-button text-xl px-16 py-8 text-lg font-semibold"
+              >
+                Analyze Your First Entry
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* OPAL Scroll-Triggered Text Reveal Section */}
+      <div className="opal-scroll-section">
+        <div className="sticky-content">
+          <div className="opal-wrapper">
+            <div className="text-center full-bleed px-7 md:px-14 lg:px-20">
+              <h2 className="opal-reveal-text wellness-theme supports-[animation-timeline]:text-2xl md:text-3xl lg:text-4xl lg:leading-[1.3]">
+                Your body feels off but you can't figure out why. Apps track your thoughts but miss the real connections. It's time to understand what your body is telling you.
+              </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      {/* Solution Section */}
+      <section className="relative z-10 py-24 px-6">
+        <div className="max-w-7xl mx-auto">
+          {/* Centered Introducing Badge */}
+          <div className="text-center mb-8 fade-enter">
+            <div className="inline-flex items-center px-6 py-2 bg-white/80 backdrop-blur-sm border border-white/20 rounded-full shadow-lg">
+              <span className="text-sm font-semibold bg-gradient-to-r from-green-600 to-teal-600 bg-clip-text text-transparent">
+                Introducing SomaJournal
+              </span>
+            </div>
+          </div>
+          
+          {/* Two Column Layout */}
+          <div className="grid lg:grid-cols-2 gap-6 max-w-6xl mx-auto items-start">
+            {/* Left Column - Video Placeholder */}
+            <div className="fade-enter">
+              <div className="relative group cursor-pointer">
+                {/* Video Card */}
+                <Card className="border-0 bg-white/80 backdrop-blur-sm hover:bg-white/95 transition-all duration-300 hover:shadow-xl overflow-hidden">
+                  <CardContent className="p-0">
+                    {/* Placeholder Video Background */}
+                    <div className="relative h-[300px] bg-gradient-to-br from-green-50 to-teal-50 flex items-center justify-center">
+                      {/* Abstract pattern background */}
+                      <div className="absolute inset-0 opacity-10">
+                        <div className="absolute top-10 left-10 w-32 h-32 bg-green-200 rounded-full blur-3xl"></div>
+                        <div className="absolute bottom-10 right-10 w-40 h-40 bg-teal-200 rounded-full blur-3xl"></div>
+                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-emerald-200 rounded-full blur-3xl"></div>
+                      </div>
+                      
+                      {/* Play Button */}
+                      <div className="relative z-10 w-24 h-24 bg-white rounded-full shadow-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <Play className="w-10 h-10 text-green-600 ml-1 fill-current" />
+                      </div>
+                      
+                      {/* Video Duration Badge */}
+                      <div className="absolute bottom-4 right-4 bg-black/70 text-white px-3 py-1 rounded-md text-lg font-medium">
+                        2:45
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                {/* TODO: Implement video modal on click
+                   * 1. Add state for modal visibility
+                   * 2. Create modal component with video embed
+                   * 3. Add click handler to open modal
+                   * 4. Support YouTube/Vimeo embed or custom video player
+                   */}
+              </div>
+              
+              <p className="text-center mt-4 text-lg text-slate-600">
+                Watch how SomaJournal transforms your journaling experience
+              </p>
+            </div>
+            
+            {/* Right Column - Content */}
+            <div className="fade-enter text-center lg:text-left">
+              <div>
+                <h3 className="text-3xl font-bold text-slate-800 tracking-tight mb-4">
+                  What is SomaJournal?
+                </h3>
+                <div className="space-y-4 text-slate-600">
+                  <p className="text-lg leading-[1.4]">
+                    SomaJournal is an intelligent journaling app that reveals the hidden connections between your emotions and physical symptoms. Write about your day, and instantly see which emotions are affecting your body and where.
+                  </p>
+                  <p className="text-lg leading-[1.4]">
+                    Get personalized body maps, track emotional patterns, and receive evidence-based recommendations to break negative cycles—all through simple daily journaling.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="text-center mt-8 fade-enter">
+            <p className="text-lg text-slate-700 font-semibold">
+              While other apps ask how you feel, SomaJournal shows you exactly where you feel it—and what to do about it.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section className="relative z-10 py-24 px-6 bg-gradient-to-br from-slate-50/50 to-gray-50/50">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12 space-y-6 fade-enter">
+            <h2 className="text-5xl font-bold text-slate-800 tracking-tight">
+              How It{' '}
+              <span className="bg-gradient-to-r from-green-600 to-teal-600 bg-clip-text text-transparent">
+                Works
+              </span>
+            </h2>
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-[1.4] font-light">
+              Three simple steps to decode your body's messages
+            </p>
+          </div>
+          
+          {/* Horizontal Step Flow Layout */}
+          <div className="max-w-6xl mx-auto fade-enter">
+            {/* Step Numbers Row with Single Continuous Line */}
+            <div className="relative mb-8">
+              {/* Continuous connecting line */}
+              <div className="hidden lg:block absolute top-8 left-[16.67%] right-[16.67%] h-0.5 bg-gradient-to-r from-green-300 via-teal-400 to-green-300 transform -translate-y-1/2"></div>
+              
+              {/* Step Numbers */}
+              <div className="grid grid-cols-3 gap-6 relative z-10">
+                {howItWorksSteps.map((step, index) => (
+                  <div key={index} className="flex justify-center">
+                    <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-600 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                      {index + 1}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            {/* Step Cards Row */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {howItWorksSteps.map((step, index) => {
+                const Icon = step.icon;
+                return (
+                  <Card key={index} className="border-0 bg-white/80 backdrop-blur-sm hover:bg-white/95 hover:shadow-lg transition-all duration-300 h-full w-full">
+                    <CardContent className="p-6 text-center h-full flex flex-col">
+                      <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${step.color} flex items-center justify-center mb-4 mx-auto shadow-lg`}>
+                        <Icon className="w-6 h-6 text-white" />
+                      </div>
+                      <h3 className="text-xl font-bold text-slate-800 tracking-tight mb-3">{step.title}</h3>
+                      <p className="text-slate-700 leading-[1.4] mb-3 font-medium flex-grow">{step.description}</p>
+                      <p className="text-lg text-slate-500 leading-[1.4] italic">{step.technical}</p>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          </div>
+          
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="relative z-10 py-32 px-6 bg-gradient-to-b from-white to-slate-50/50">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12 space-y-6 fade-enter">
+            <div className="flex items-center justify-center space-x-3 mb-4">
+              <Users className="w-8 h-8 text-green-600" />
+              <h2 className="text-5xl font-bold text-slate-800 tracking-tight">
+                Real people,{' '}
+                <span className="bg-gradient-to-r from-green-600 to-teal-600 bg-clip-text text-transparent">
+                  real healing
+                </span>
+              </h2>
+            </div>
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-[1.4] font-light">
+              Discover how our users uncovered the hidden connections between their emotions and physical symptoms
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {testimonials.map((testimonial, index) => {
+              const Icon = testimonial.icon;
+              return (
+                <Card key={index} className="group border-0 bg-white/70 backdrop-blur-sm hover:bg-white/90 transition-all duration-300 hover:shadow-xl relative overflow-hidden">
+                  <CardContent className="p-8 text-center relative z-10">
+                    {/* Quote Icon */}
+                    <div className="flex justify-center mb-6">
+                      <Quote className="w-8 h-8 text-slate-400" />
+                    </div>
+                    
+                    {/* Testimonial Quote */}
+                    <blockquote className="text-lg font-medium text-slate-800 mb-6 leading-[1.4]">
+                      "{testimonial.quote}"
+                    </blockquote>
+                    
+                    {/* User Info */}
+                    <div className="text-center">
+                      <p className="font-semibold text-slate-800">{testimonial.name}</p>
+                      <p className="text-lg text-slate-500">Age {testimonial.age}</p>
+                    </div>
+                  </CardContent>
+                  
+                  {/* Subtle background gradient */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${testimonial.color} opacity-5 group-hover:opacity-10 transition-opacity duration-300`}></div>
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="relative z-10 py-32 px-6">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12 space-y-6 fade-enter">
+            <div className="flex items-center justify-center space-x-3 mb-4">
+              <HelpCircle className="w-8 h-8 text-green-600" />
+              <h2 className="text-5xl font-bold text-slate-800 tracking-tight">
+                Frequently Asked{' '}
+                <span className="bg-gradient-to-r from-green-600 to-teal-600 bg-clip-text text-transparent">
+                  Questions
+                </span>
+              </h2>
+            </div>
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-[1.4] font-light">
+              Everything you need to know about SomaJournal
+            </p>
+          </div>
+          
+          <div className="space-y-4 fade-enter">
+            {faqItems.map((faq, index) => (
+              <Card key={index} className="border border-slate-200 bg-white/80 backdrop-blur-sm hover:bg-white/95 transition-all duration-200">
+                <CardContent className="p-0">
+                  <button
+                    onClick={() => setOpenFAQ(openFAQ === index ? null : index)}
+                    className="w-full p-6 text-left flex items-center justify-between hover:bg-slate-50/50 transition-colors duration-200"
+                  >
+                    <h3 className="text-lg font-semibold text-slate-800 pr-4">
+                      {faq.question}
+                    </h3>
+                    {openFAQ === index ? (
+                      <ChevronUp className="w-5 h-5 text-slate-500 flex-shrink-0" />
+                    ) : (
+                      <ChevronDown className="w-5 h-5 text-slate-500 flex-shrink-0" />
+                    )}
+                  </button>
+                  
+                  {openFAQ === index && (
+                    <div className="px-6 pb-6 pt-0">
+                      <p className="text-slate-600 leading-[1.4] max-w-lg">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Meditative Quote Cycle Section */}
+      <section className="relative z-10 py-24 px-6 pb-32">
+        <div className="max-w-6xl mx-auto text-center">
+          <div className="space-y-12 max-w-5xl mx-auto fade-enter">
+            <div className="relative min-h-40 flex items-center justify-center px-8">
+              {/* English Quote - On Hover */}
+              <div
+                className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-1000 ease-in-out cursor-pointer ${
+                  !showSanskrit ? 'opacity-100' : 'opacity-0'
+                }`}
+                onMouseEnter={() => setShowSanskrit(false)}
+                onMouseLeave={() => setShowSanskrit(true)}
+              >
+                <blockquote 
+                  className="text-4xl leading-[1.4] font-medium text-slate-800 max-w-4xl"
+                  style={{ fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif' }}
+                >
+                  {quotes[0].text}
+                </blockquote>
+              </div>
+
+              {/* Sanskrit Quote - Default */}
+              <div
+                className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-1000 ease-in-out cursor-pointer ${
+                  showSanskrit ? 'opacity-100' : 'opacity-0'
+                }`}
+                onMouseEnter={() => setShowSanskrit(false)}
+                onMouseLeave={() => setShowSanskrit(true)}
+              >
+                <blockquote 
+                  className="text-4xl leading-[1.4] mb-6 font-medium text-slate-800 max-w-4xl"
+                  style={{ fontFamily: '"Poppins", "Noto Sans Devanagari", sans-serif' }}
+                >
+                  {quotes[1].text}
+                </blockquote>
+                <cite 
+                  className="text-lg text-slate-600 font-normal"
+                  style={{ fontFamily: '"Poppins", "Noto Sans Devanagari", sans-serif' }}
+                >
+                  {quotes[1].author}
+                </cite>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Bottom CTA Section */}
+      <section className="relative z-10 py-24 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="space-y-8 fade-enter">
+            <div className="space-y-4">
+              <h2 className="text-5xl font-bold text-white drop-shadow-lg tracking-tight">
+                Ready to understand your{' '}
+                <span className="bg-gradient-to-r from-green-200 to-teal-200 bg-clip-text text-transparent">
+                  mind-body connection?
+                </span>
+              </h2>
+              <p className="text-xl text-white/95 max-w-2xl mx-auto leading-[1.4] font-light drop-shadow-md">
+                Join thousands who've discovered the hidden patterns between their emotions and physical well-being. Start your journey today.
+              </p>
+            </div>
+            
+            <div className="pt-4">
+              <Button
+                size="lg"
+                onClick={() => router.push('/auth/signup')}
+                className="bg-white text-slate-900 hover:bg-gray-50 text-xl px-16 py-8 font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"
+              >
+                <Play className="w-6 h-6 mr-3" />
+                Start Your Healing Journey
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      </main>
+
+      {/* Footer - moved outside opal-wrapper for full-width background */}
+      <footer className="relative w-full bg-gradient-to-t from-slate-900/90 via-slate-800/60 to-transparent backdrop-blur-sm">
+        <div className="max-w-6xl mx-auto py-16">
+          {/* Use same grid layout as header */}
+          <div className="grid grid-cols-[1fr_2fr_1fr] items-start">
+            {/* Main Footer Content - spans all columns */}
+            <div className="col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Company Section */}
+            <div className="space-y-4">
+              <div className="flex items-center space-x-3">
+                <SomaLogo size="sm" className="breathing-element" />
+                <div>
+                  <span className="text-xl font-bold text-white">SomaJournal</span>
+                </div>
+              </div>
+              <p className="text-white/80 text-sm leading-relaxed">
+                The first intelligent journal that uses AI to decode your emotional patterns and reveal their direct impact on your physical well-being.
+              </p>
+            </div>
+
+            {/* Product Column */}
+            <div className="space-y-4">
+              <h3 className="text-white font-semibold text-lg">Product</h3>
+              <ul className="space-y-3">
+                <li><a href="#" className="text-white/70 hover:text-white transition-colors duration-200">Features</a></li>
+                <li><a href="#" className="text-white/70 hover:text-white transition-colors duration-200">Use Cases</a></li>
+                <li><a href="#" className="text-white/70 hover:text-white transition-colors duration-200">Pricing</a></li>
+                <li><a href="#" className="text-white/70 hover:text-white transition-colors duration-200">Documentation</a></li>
+                <li><a href="#" className="text-white/70 hover:text-white transition-colors duration-200">Support</a></li>
+              </ul>
+            </div>
+
+            {/* Contact Column */}
+            <div className="space-y-4">
+              <h3 className="text-white font-semibold text-lg">Contact</h3>
+              <ul className="space-y-3">
+                <li><a href="#" className="text-white/70 hover:text-white transition-colors duration-200">Discord</a></li>
+                <li><a href="#" className="text-white/70 hover:text-white transition-colors duration-200">Twitter</a></li>
+                <li><a href="#" className="text-white/70 hover:text-white transition-colors duration-200">GitHub</a></li>
+                <li><a href="#" className="text-white/70 hover:text-white transition-colors duration-200">Email</a></li>
+              </ul>
+            </div>
+            </div>
+            
+            {/* Footer Bottom - also spans all columns */}
+            <div className="col-span-3 mt-12 pt-8 border-t border-white/20">
+              <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                <p className="text-white/60 text-sm">
+                  Copyright © 2025 SomaJournal. All rights reserved.
+                </p>
+                <div className="flex space-x-6">
+                  <a href="#" className="text-white/60 hover:text-white transition-colors duration-200 text-sm">Privacy Policy</a>
+                  <a href="#" className="text-white/60 hover:text-white transition-colors duration-200 text-sm">Terms of Service</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </>
+  );
+}

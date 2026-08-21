@@ -1,0 +1,2627 @@
+/* Helvetica Neue Font Faces */
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('/fonts/HelveticaNeueThin.otf') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('/fonts/HelveticaNeueLight.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('/fonts/HelveticaNeueRoman.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('/fonts/HelveticaNeueMedium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('/fonts/HelveticaNeueBold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 230 245 230;
+    --foreground: 31 41 55;
+    --card: 255 255 255;
+    --card-foreground: 31 41 55;
+    --popover: 255 255 255;
+    --popover-foreground: 31 41 55;
+    --primary: 34 197 94;
+    --primary-foreground: 255 255 255;
+    --secondary: 254 243 199;
+    --secondary-foreground: 31 41 55;
+    --muted: 240 249 255;
+    --muted-foreground: 100 116 139;
+    --accent: 14 165 233;
+    --accent-foreground: 255 255 255;
+    --destructive: 239 68 68;
+    --destructive-foreground: 255 255 255;
+    --border: 226 232 240;
+    --input: 226 232 240;
+    --ring: 34 197 94;
+    --radius: 0.75rem;
+    
+    /* Chakra Colors */
+    --chakra-root: 220 38 38;
+    --chakra-sacral: 234 88 12;
+    --chakra-solar: 234 179 8;
+    --chakra-heart: 34 197 94;
+    --chakra-throat: 59 130 246;
+    --chakra-third-eye: 99 102 241;
+    --chakra-crown: 147 51 234;
+    
+    /* Wellness Theme Colors */
+    --wellness-primary: 16 185 129;
+    --wellness-secondary: 148 163 184;
+    --wellness-accent: 245 158 11;
+    
+    /* Modern Sidebar Variables */
+    --sidebar-width: 16rem;
+    --sidebar-bg: #FAFAFA;
+    --sidebar-border: #E5E7EB;
+    --sidebar-text: #374151;
+    --sidebar-text-hover: #111827;
+    --sidebar-hover-bg: rgba(0, 0, 0, 0.05);
+    --sidebar-active-bg: rgba(67, 160, 71, 0.1);
+    --sidebar-active-text: #43A047;
+    --sidebar-transition: 150ms ease;
+  }
+  
+  .dark {
+    --background: 15 23 42;
+    --foreground: 248 250 252;
+    --card: 30 41 59;
+    --card-foreground: 248 250 252;
+    --popover: 30 41 59;
+    --popover-foreground: 248 250 252;
+    --primary: 129 140 248;
+    --primary-foreground: 15 23 42;
+    --secondary: 51 65 85;
+    --secondary-foreground: 226 232 240;
+    --muted: 51 65 85;
+    --muted-foreground: 148 163 184;
+    --accent: 51 65 85;
+    --accent-foreground: 226 232 240;
+    --destructive: 220 38 38;
+    --destructive-foreground: 248 250 252;
+    --border: 51 65 85;
+    --input: 51 65 85;
+    --ring: 129 140 248;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  /* Remove default browser focus outlines */
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: none !important;
+  }
+  
+  /* Remove browser autocomplete/autofill styling */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    -webkit-text-fill-color: rgba(71, 85, 105, 0.7) !important;
+    outline: none !important;
+    border: 1px solid #d1d5db !important;
+  }
+  
+  input:-webkit-autofill:focus {
+    border: 1px solid #10b981 !important;
+    box-shadow: 0 0 0 2px #10b981 !important;
+  }
+  
+  /* Ensure input text is visible but with reduced opacity */
+  input[type="text"],
+  input[type="email"], 
+  input[type="password"],
+  input[type="number"],
+  .signup-input {
+    color: rgba(71, 85, 105, 0.7) !important;
+    -webkit-text-fill-color: rgba(71, 85, 105, 0.7) !important;
+  }
+  
+  /* Fix any remaining text color issues */
+  input, textarea, select {
+    color: rgba(71, 85, 105, 0.7) !important;
+  }
+  
+  /* Ensure placeholders are visible but lighter */
+  ::placeholder {
+    color: rgba(148, 163, 184, 0.6) !important;
+    opacity: 1 !important;
+  }
+
+  /* Chakra system styling */
+  .chakra-ring {
+    position: relative;
+    min-height: 600px;
+    min-width: 600px;
+  }
+
+  .chakra-tooltip {
+    animation: tooltipFadeIn 0.2s ease-out;
+  }
+
+  @keyframes tooltipFadeIn {
+    from {
+      opacity: 0;
+      transform: translateX(-50%) translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+
+  .chakra-glow {
+    transition: all 0.3s ease;
+  }
+
+  .chakra-glow:hover {
+    filter: drop-shadow(0 0 10px currentColor);
+  }
+
+  /* Enhanced chakra animations */
+  .chakra-pulse {
+    animation: chakraPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes chakraPulse {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+    50% {
+      transform: scale(1.05);
+      opacity: 1;
+    }
+  }
+
+  .chakra-glow-cycle {
+    animation: chakraGlow 3s ease-in-out infinite;
+  }
+
+  @keyframes chakraGlow {
+    0%, 100% {
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+    }
+    50% {
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+    }
+  }
+
+  /* Dimension.dev Header Styling */
+  .dimension-header {
+    position: relative;
+  }
+
+  .dimension-header::before {
+    width: 100%;
+    height: 100%;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.01);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: opacity 0.45s cubic-bezier(0.6, 0.6, 0, 1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  
+  body {
+    @apply text-slate-800;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    background: linear-gradient(135deg, 
+      rgb(248 250 252) 0%, 
+      rgb(241 245 249) 25%, 
+      rgb(236 254 255) 50%, 
+      rgb(243 244 246) 75%, 
+      rgb(250 250 255) 100%);
+    min-height: 100vh;
+    position: relative;
+    overscroll-behavior: none; /* Prevent overscroll artifacts */
+  }
+  
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(147, 51, 234, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(34, 197, 94, 0.02) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    @apply text-slate-800;
+  }
+  
+  h1 {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  
+  h2 {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  
+  h3 {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  
+  h4 {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+  
+  h5 {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+  
+  h6 {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+  
+  p {
+    @apply text-slate-600;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+  
+  /* Ensure all text is visible */
+  .text-foreground {
+    @apply text-slate-800;
+  }
+  
+  .text-muted-foreground {
+    @apply text-slate-600;
+  }
+}
+
+@layer components {
+  /* Animated Gradient Text with Subtle Shine Effect */
+  .gradient-text-shine {
+    background: linear-gradient(
+      90deg,
+      #ffffff 0%,
+      #f8fafc 15%,
+      #e2e8f0 30%,
+      #f1f5f9 45%,
+      #cbd5e1 60%,
+      #f8fafc 75%,
+      #e2e8f0 85%,
+      #ffffff 100%
+    );
+    background-size: 200% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-shine 6s ease-in-out infinite;
+    position: relative;
+  }
+  
+  .gradient-text-shine::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.15) 50%,
+      transparent 100%
+    );
+    animation: shine-sweep 4s ease-in-out infinite;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* Gentle Breathing Elements */
+  .wellness-container {
+    @apply relative;
+    background: linear-gradient(135deg, 
+      rgba(240, 251, 244, 0.9) 0%, 
+      rgba(220, 252, 231, 0.85) 25%, 
+      rgba(187, 247, 208, 0.8) 50%, 
+      rgba(167, 243, 208, 0.85) 75%, 
+      rgba(240, 251, 244, 0.9) 100%);
+    animation: breathing-gradient 6s ease-in-out infinite;
+  }
+  
+  @keyframes breathing-gradient {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.97;
+    }
+  }
+  
+  /* Texture overlay */
+  .wellness-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+      radial-gradient(circle at 3px 3px, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px, 30px 30px;
+    background-position: 0 0, 15px 15px;
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  .breathing-element {
+    animation: gentle-breathing 6s ease-in-out infinite;
+  }
+  
+  .energy-pulse {
+    animation: energy-pulse 4s ease-in-out infinite;
+  }
+  
+  /* Enhanced Floating Particles System */
+  .floating-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+  }
+  
+  .floating-particles .particle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.15;
+    pointer-events: none;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+  
+  @keyframes floatUp1 {
+    0% {
+      opacity: 0;
+      transform: translateY(100vh) translateX(0) scale(0.5);
+    }
+    10% {
+      opacity: 0.3;
+      transform: translateY(90vh) translateX(10px) scale(0.7);
+    }
+    50% {
+      opacity: 0.4;
+      transform: translateY(50vh) translateX(-20px) scale(1);
+    }
+    90% {
+      opacity: 0.3;
+      transform: translateY(10vh) translateX(15px) scale(0.8);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-10vh) translateX(0) scale(0.3);
+    }
+  }
+  
+  @keyframes floatUp2 {
+    0% {
+      opacity: 0;
+      transform: translateY(100vh) translateX(0) scale(0.3);
+    }
+    15% {
+      opacity: 0.25;
+      transform: translateY(85vh) translateX(-15px) scale(0.6);
+    }
+    50% {
+      opacity: 0.35;
+      transform: translateY(50vh) translateX(25px) scale(1);
+    }
+    85% {
+      opacity: 0.25;
+      transform: translateY(15vh) translateX(-10px) scale(0.7);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-10vh) translateX(0) scale(0.2);
+    }
+  }
+  
+  @keyframes floatUp3 {
+    0% {
+      opacity: 0;
+      transform: translateY(100vh) translateX(0) scale(0.4);
+    }
+    20% {
+      opacity: 0.3;
+      transform: translateY(80vh) translateX(20px) scale(0.8);
+    }
+    50% {
+      opacity: 0.4;
+      transform: translateY(50vh) translateX(-30px) scale(1);
+    }
+    80% {
+      opacity: 0.3;
+      transform: translateY(20vh) translateX(25px) scale(0.6);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-10vh) translateX(0) scale(0.1);
+    }
+  }
+  
+  /* Accessibility: Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    .floating-particles .particle {
+      animation: none;
+      opacity: 0;
+    }
+    
+    .breathing-gradient {
+      animation: none;
+    }
+    
+    .breathing-element {
+      animation: none;
+    }
+  }
+
+  /* Floating Animation for Emotion Bubbles */
+  @keyframes float {
+    0%, 100% {
+      transform: translate(-50%, -50%) translateY(0px);
+    }
+    50% {
+      transform: translate(-50%, -50%) translateY(-8px);
+    }
+  }
+  
+  /* Karmic Aura System */
+  .karmic-aura {
+    position: relative;
+    overflow: visible;
+  }
+  
+  .karmic-aura::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(45deg, transparent, var(--aura-color, rgba(168, 162, 158, 0.3)), transparent);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: xor;
+    animation: aura-breathing 6s ease-in-out infinite;
+    pointer-events: none;
+  }
+  
+  .karmic-aura.positive::before {
+    --aura-color: rgba(16, 185, 129, 0.4);
+  }
+  
+  .karmic-aura.neutral::before {
+    --aura-color: rgba(148, 163, 184, 0.3);
+  }
+  
+  .karmic-aura.negative::before {
+    --aura-color: rgba(245, 158, 11, 0.4);
+  }
+  
+  /* Enhanced Glassmorphic Components */
+  .glass-card {
+    background: linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.15) 0%, 
+      rgba(255, 255, 255, 0.05) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 24px;
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.1),
+      0 4px 16px rgba(0, 0, 0, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.1) 0%, 
+      transparent 50%, 
+      rgba(255, 255, 255, 0.05) 100%);
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  .glass-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    background: linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.2) 0%, 
+      rgba(255, 255, 255, 0.1) 100%);
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.15),
+      0 8px 24px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .glass-card-primary {
+    background: linear-gradient(135deg, 
+      rgba(34, 197, 94, 0.15) 0%, 
+      rgba(16, 185, 129, 0.05) 100%);
+    border-color: rgba(34, 197, 94, 0.3);
+    box-shadow: 
+      0 8px 32px rgba(34, 197, 94, 0.1),
+      0 4px 16px rgba(34, 197, 94, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+
+  .glass-card-primary:hover {
+    background: linear-gradient(135deg, 
+      rgba(34, 197, 94, 0.2) 0%, 
+      rgba(16, 185, 129, 0.1) 100%);
+    box-shadow: 
+      0 20px 40px rgba(34, 197, 94, 0.2),
+      0 8px 24px rgba(34, 197, 94, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+
+  .glass-card-secondary {
+    background: linear-gradient(135deg, 
+      rgba(99, 102, 241, 0.15) 0%, 
+      rgba(147, 51, 234, 0.05) 100%);
+    border-color: rgba(99, 102, 241, 0.3);
+    box-shadow: 
+      0 8px 32px rgba(99, 102, 241, 0.1),
+      0 4px 16px rgba(99, 102, 241, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+
+  .glass-card-secondary:hover {
+    background: linear-gradient(135deg, 
+      rgba(99, 102, 241, 0.2) 0%, 
+      rgba(147, 51, 234, 0.1) 100%);
+    box-shadow: 
+      0 20px 40px rgba(99, 102, 241, 0.2),
+      0 8px 24px rgba(99, 102, 241, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+
+  .glass-card-warning {
+    background: linear-gradient(135deg, 
+      rgba(245, 158, 11, 0.15) 0%, 
+      rgba(251, 140, 0, 0.05) 100%);
+    border-color: rgba(245, 158, 11, 0.3);
+    box-shadow: 
+      0 8px 32px rgba(245, 158, 11, 0.1),
+      0 4px 16px rgba(245, 158, 11, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+
+  /* Wellness Components - Updated to use glass styling */
+  .wellness-card {
+    @apply glass-card;
+  }
+
+  /* Dashboard-specific glass components */
+  .dashboard-hero {
+    background: linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.1) 0%, 
+      rgba(255, 255, 255, 0.05) 100%);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .dashboard-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(34, 197, 94, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  /* Weekly Emotional Journey Styles */
+  .weekly-journey-card {
+    @apply glass-card-primary;
+    grid-column: 1 / -1; /* Full width */
+  }
+
+  .emotion-chart .recharts-surface {
+    background: linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.1) 0%, 
+      rgba(255, 255, 255, 0.05) 100%);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .emotion-high-indicator {
+    background: linear-gradient(135deg, 
+      rgba(16, 185, 129, 0.15) 0%, 
+      rgba(34, 197, 94, 0.05) 100%);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+  }
+
+  .emotion-low-indicator {
+    background: linear-gradient(135deg, 
+      rgba(245, 158, 11, 0.15) 0%, 
+      rgba(251, 140, 0, 0.05) 100%);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+  }
+
+  .volatility-indicator {
+    background: linear-gradient(135deg, 
+      rgba(99, 102, 241, 0.15) 0%, 
+      rgba(147, 51, 234, 0.05) 100%);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+  }
+
+  /* Psychosomatic Pattern Styles */
+  .body-region-active {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      filter: drop-shadow(0 0 6px rgba(239, 68, 68, 0.5));
+      transform: scale(1);
+    }
+    50% {
+      filter: drop-shadow(0 0 12px rgba(239, 68, 68, 0.8));
+      transform: scale(1.05);
+    }
+  }
+
+  .psychosomatic-legend {
+    background: linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.1) 0%, 
+      rgba(255, 255, 255, 0.05) 100%);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+  }
+
+  /* Enhanced Chart Tooltips */
+  .recharts-tooltip-wrapper .recharts-default-tooltip {
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  /* Weekly Navigation */
+  .week-nav-button {
+    background: linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.1) 0%, 
+      rgba(255, 255, 255, 0.05) 100%);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+
+  .week-nav-button:hover {
+    background: linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.2) 0%, 
+      rgba(255, 255, 255, 0.1) 100%);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+  }
+
+  /* Dashboard Grid Improvements */
+  .dashboard-secondary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .dashboard-secondary-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .dashboard-secondary-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  /* Specialized Psychosomatic Dashboard Styles */
+  .psychosomatic-hero {
+    min-height: 60vh;
+    background: linear-gradient(135deg, 
+      rgba(147, 51, 234, 0.05) 0%, 
+      rgba(219, 39, 119, 0.05) 50%,
+      rgba(59, 130, 246, 0.05) 100%);
+    border: 2px solid rgba(147, 51, 234, 0.2);
+  }
+
+  .psychosomatic-flow {
+    min-height: 20vh;
+    background: linear-gradient(135deg, 
+      rgba(59, 130, 246, 0.05) 0%, 
+      rgba(16, 185, 129, 0.05) 100%);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    overflow: visible;
+  }
+
+  .quick-symptom-entry {
+    background: linear-gradient(135deg, 
+      rgba(16, 185, 129, 0.05) 0%, 
+      rgba(34, 197, 94, 0.05) 100%);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    overflow: visible;
+    width: 100%;
+  }
+
+  /* Chakra-based body region colors */
+  .body-region-crown {
+    fill: rgba(147, 51, 234, 0.6);
+    stroke: #9333EA;
+  }
+
+  .body-region-throat {
+    fill: rgba(59, 130, 246, 0.6);
+    stroke: #3B82F6;
+  }
+
+  .body-region-heart {
+    fill: rgba(16, 185, 129, 0.6);
+    stroke: #10B981;
+  }
+
+  .body-region-solar {
+    fill: rgba(245, 158, 11, 0.6);
+    stroke: #F59E0B;
+  }
+
+  .body-region-sacral {
+    fill: rgba(249, 115, 22, 0.6);
+    stroke: #F97316;
+  }
+
+  .body-region-root {
+    fill: rgba(220, 38, 38, 0.6);
+    stroke: #DC2626;
+  }
+
+  /* Correlation connection animations */
+  @keyframes correlation-flow {
+    0% {
+      stroke-dasharray: 5 5;
+      stroke-dashoffset: 0;
+    }
+    100% {
+      stroke-dashoffset: 10;
+    }
+  }
+
+  .correlation-line {
+    animation: correlation-flow 2s linear infinite;
+  }
+
+  .correlation-line-strong {
+    animation: correlation-flow 1s linear infinite;
+    filter: drop-shadow(0 0 4px currentColor);
+  }
+
+  /* Psychosomatic insight cards */
+  .insight-psychosomatic {
+    background: linear-gradient(135deg, 
+      rgba(147, 51, 234, 0.1) 0%, 
+      rgba(219, 39, 119, 0.1) 100%);
+    border-left: 4px solid #9333EA;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .insight-psychosomatic::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, 
+      transparent 40%, 
+      rgba(147, 51, 234, 0.05) 50%, 
+      transparent 60%);
+    transform: translateX(-100%);
+    animation: insight-shimmer 3s ease-in-out infinite;
+  }
+
+  @keyframes insight-shimmer {
+    0% { transform: translateX(-100%); }
+    50% { transform: translateX(100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  /* Body map glow effects */
+  .body-map-active {
+    filter: drop-shadow(0 0 8px rgba(147, 51, 234, 0.5));
+    animation: psychosomatic-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes psychosomatic-pulse {
+    0%, 100% {
+      transform: scale(1);
+      filter: drop-shadow(0 0 8px rgba(147, 51, 234, 0.3));
+    }
+    50% {
+      transform: scale(1.02);
+      filter: drop-shadow(0 0 12px rgba(147, 51, 234, 0.6));
+    }
+  }
+
+  /* Symptom severity indicators */
+  .symptom-mild {
+    background: linear-gradient(135deg, #10B981, #059669);
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+  }
+
+  .symptom-moderate {
+    background: linear-gradient(135deg, #F59E0B, #D97706);
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+  }
+
+  .symptom-severe {
+    background: linear-gradient(135deg, #EF4444, #DC2626);
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+    animation: symptom-alert 1.5s ease-in-out infinite;
+  }
+
+  @keyframes symptom-alert {
+    0%, 100% { box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3); }
+    50% { box-shadow: 0 4px 16px rgba(239, 68, 68, 0.5); }
+  }
+
+  /* Quick entry emotion buttons */
+  .emotion-button {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .emotion-button:hover {
+    transform: translateY(-2px) scale(1.05);
+  }
+
+  .emotion-button.selected {
+    transform: translateY(-4px) scale(1.1);
+    box-shadow: 0 8px 25px rgba(147, 51, 234, 0.3);
+  }
+
+  .emotion-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+      transparent, 
+      rgba(255, 255, 255, 0.4), 
+      transparent);
+    transition: left 0.5s;
+  }
+
+  .emotion-button:hover::before {
+    left: 100%;
+  }
+
+  /* Collapsible section styling */
+  details[open] summary {
+    background: linear-gradient(135deg, 
+      rgba(156, 163, 175, 0.1) 0%, 
+      rgba(209, 213, 219, 0.1) 100%);
+    border-color: rgba(156, 163, 175, 0.3);
+  }
+
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+
+  details summary::after {
+    content: '▼';
+    float: right;
+    transform: rotate(-90deg);
+    transition: transform 0.3s ease;
+    color: #6B7280;
+  }
+
+  details[open] summary::after {
+    transform: rotate(0deg);
+  }
+
+  /* Enhanced focus states for accessibility */
+  .psychosomatic-focus:focus-visible {
+    outline: 2px solid #9333EA;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(147, 51, 234, 0.1);
+  }
+
+  /* Responsive psychosomatic grid */
+  .psychosomatic-grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-rows: auto auto auto auto;
+  }
+
+  @media (min-width: 768px) {
+    .psychosomatic-grid {
+      grid-template-rows: auto auto auto auto;
+      gap: 3rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .psychosomatic-grid {
+      grid-template-rows: auto auto auto auto;
+      gap: 3rem;
+    }
+  }
+
+  /* Ensure no overlap on smaller screens */
+  @media (max-width: 767px) {
+    .psychosomatic-grid {
+      gap: 1.5rem;
+    }
+    
+    .psychosomatic-hero {
+      min-height: 50vh;
+    }
+    
+    .psychosomatic-flow {
+      min-height: auto;
+    }
+  }
+
+  /* Discovery badge animation */
+  .discovery-badge {
+    animation: discovery-bounce 2s ease-in-out infinite;
+  }
+
+  @keyframes discovery-bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-3px);
+    }
+    60% {
+      transform: translateY(-1px);
+    }
+  }
+
+  .insight-card {
+    @apply glass-card;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .insight-card.priority-high {
+    @apply glass-card-warning;
+  }
+
+  .insight-card.priority-medium {
+    @apply glass-card-secondary;
+  }
+
+  .insight-card.priority-low {
+    @apply glass-card-primary;
+  }
+
+  .insight-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, 
+      rgba(34, 197, 94, 0.8), 
+      rgba(16, 185, 129, 0.6));
+    border-radius: 0 2px 2px 0;
+  }
+
+  .insight-card.priority-high::after {
+    background: linear-gradient(to bottom, 
+      rgba(245, 158, 11, 0.8), 
+      rgba(251, 140, 0, 0.6));
+  }
+
+  .insight-card.priority-medium::after {
+    background: linear-gradient(to bottom, 
+      rgba(99, 102, 241, 0.8), 
+      rgba(147, 51, 234, 0.6));
+  }
+
+  /* Chakra visualization enhancements */
+  .chakra-wheel {
+    position: relative;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.1));
+  }
+
+  .chakra-point {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+  }
+
+  .chakra-point:hover {
+    transform: scale(1.2);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+  }
+
+  .chakra-point.active {
+    animation: chakra-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes chakra-pulse {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+    50% {
+      transform: scale(1.1);
+      opacity: 1;
+    }
+  }
+
+  /* Emotion trend chart styling */
+  .emotion-chart {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+  }
+
+  .emotion-bubble {
+    position: absolute;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .emotion-bubble:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  .emotion-bubble::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: inherit;
+    border-radius: inherit;
+    opacity: 0.3;
+    animation: ripple 2s ease-out infinite;
+  }
+
+  @keyframes ripple {
+    0% {
+      transform: scale(1);
+      opacity: 0.3;
+    }
+    100% {
+      transform: scale(1.2);
+      opacity: 0;
+    }
+  }
+
+  /* Journal rhythm visualization */
+  .rhythm-bar {
+    background: linear-gradient(to top, 
+      rgba(34, 197, 94, 0.6), 
+      rgba(34, 197, 94, 0.8));
+    border-radius: 4px 4px 0 0;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .rhythm-bar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 2px 2px 0 0;
+  }
+
+  .rhythm-bar:hover {
+    background: linear-gradient(to top, 
+      rgba(34, 197, 94, 0.8), 
+      rgba(34, 197, 94, 1));
+    transform: scaleY(1.1);
+  }
+
+  /* Mobile Optimizations */
+  @media (max-width: 768px) {
+    .dashboard-hero {
+      border-radius: 20px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .glass-card {
+      border-radius: 16px;
+      margin-bottom: 16px;
+    }
+
+    .chakra-wheel {
+      width: 160px;
+      height: 160px;
+    }
+
+    .chakra-point {
+      width: 20px;
+      height: 20px;
+    }
+
+    .emotion-chart {
+      height: 120px;
+    }
+
+    .rhythm-bar {
+      min-height: 20px;
+    }
+
+    /* Touch-friendly interactions */
+    .glass-card:hover {
+      transform: none;
+    }
+
+    .glass-card:active {
+      transform: scale(0.98);
+    }
+
+    .chakra-point:hover {
+      transform: scale(1.1);
+    }
+
+    .emotion-bubble:hover {
+      transform: scale(1.05);
+    }
+
+    /* Reduce animation intensity on mobile */
+    .breathing-element {
+      animation-duration: 8s;
+    }
+
+    .floating-particles .particle {
+      animation-duration: 30s;
+    }
+
+    /* Text scaling for mobile */
+    h1 {
+      font-size: 28px;
+    }
+
+    h2 {
+      font-size: 24px;
+    }
+
+    h3 {
+      font-size: 20px;
+    }
+
+    /* Compact card headers */
+    .card-header {
+      padding: 16px;
+    }
+
+    .card-content {
+      padding: 16px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .dashboard-hero {
+      padding: 16px;
+      border-radius: 16px;
+    }
+
+    .glass-card {
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+
+    .chakra-wheel {
+      width: 120px;
+      height: 120px;
+    }
+
+    .chakra-point {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Very compact layouts for small screens */
+    h1 {
+      font-size: 24px;
+    }
+
+    h2 {
+      font-size: 20px;
+    }
+
+    h3 {
+      font-size: 18px;
+    }
+
+    .card-header {
+      padding: 12px;
+    }
+
+    .card-content {
+      padding: 12px;
+    }
+
+    /* Reduce floating particles on very small screens */
+    .floating-particles .particle:nth-child(n+6) {
+      display: none;
+    }
+  }
+
+  /* Accessibility Enhancements */
+  @media (prefers-reduced-motion: reduce) {
+    .glass-card,
+    .chakra-point,
+    .emotion-bubble,
+    .rhythm-bar {
+      transition: none;
+    }
+
+    .breathing-element,
+    .floating-particles .particle,
+    .animate-pulse,
+    .animate-bounce {
+      animation: none;
+    }
+
+    .chakra-pulse {
+      animation: none;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      border: 2px solid #000;
+    }
+
+    .dashboard-hero {
+      background: rgba(255, 255, 255, 0.95);
+      border: 2px solid #000;
+    }
+
+    .insight-card {
+      border: 2px solid #000;
+    }
+  }
+
+  /* Print styles */
+  @media print {
+    .floating-particles,
+    .breathing-element,
+    .animate-pulse,
+    .animate-bounce {
+      display: none;
+    }
+
+    .glass-card {
+      background: white;
+      border: 1px solid #ccc;
+      box-shadow: none;
+      break-inside: avoid;
+    }
+
+    .dashboard-hero {
+      background: white;
+      border: 1px solid #ccc;
+      box-shadow: none;
+    }
+  }
+  
+  /* Analysis Animation */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+    opacity: 0;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .wellness-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    pointer-events: none;
+  }
+  
+  .wellness-card:hover {
+    @apply shadow-xl scale-[1.02];
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.2);
+  }
+  
+  .wellness-button {
+    @apply bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-medium px-8 py-4 rounded-2xl shadow-lg transition-all duration-300;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .wellness-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+  
+  .wellness-button:hover::before {
+    left: 100%;
+  }
+  
+  .wellness-button:hover {
+    @apply shadow-xl scale-105;
+    box-shadow: 0 20px 40px -12px rgba(34, 197, 94, 0.4);
+  }
+  
+  .wellness-input {
+    @apply bg-white/60 border border-white/40 rounded-2xl px-6 py-4 backdrop-blur-sm;
+    transition: all 0.3s ease;
+    color: rgb(30 41 59) !important;
+  }
+  
+  .wellness-input::placeholder {
+    color: rgb(100 116 139) !important;
+  }
+  
+  .wellness-input:focus {
+    @apply border-green-300 shadow-lg;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1), 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    color: rgb(30 41 59) !important;
+  }
+  
+  /* Mandala Progress Ring */
+  .mandala-progress {
+    position: relative;
+    width: 120px;
+    height: 120px;
+  }
+  
+  .mandala-progress svg {
+    transform: rotate(-90deg);
+    width: 100%;
+    height: 100%;
+  }
+  
+  .mandala-progress .progress-ring {
+    fill: none;
+    stroke-width: 8;
+    stroke-linecap: round;
+    transition: stroke-dasharray 1s ease-in-out;
+  }
+  
+  .mandala-progress .progress-bg {
+    stroke: rgba(148, 163, 184, 0.2);
+  }
+  
+  .mandala-progress .progress-fill {
+    stroke: url(#karma-gradient);
+    animation: progress-glow 3s ease-in-out infinite;
+  }
+  
+  /* Chakra Colors */
+  .chakra-root { 
+    color: rgb(var(--chakra-root)); 
+    background-color: rgb(var(--chakra-root));
+  }
+  .chakra-sacral { 
+    color: rgb(var(--chakra-sacral)); 
+    background-color: rgb(var(--chakra-sacral));
+  }
+  .chakra-solar { 
+    color: rgb(var(--chakra-solar)); 
+    background-color: rgb(var(--chakra-solar));
+  }
+  .chakra-heart { 
+    color: rgb(var(--chakra-heart)); 
+    background-color: rgb(var(--chakra-heart));
+  }
+  .chakra-throat { 
+    color: rgb(var(--chakra-throat)); 
+    background-color: rgb(var(--chakra-throat));
+  }
+  .chakra-third-eye { 
+    color: rgb(var(--chakra-third-eye)); 
+    background-color: rgb(var(--chakra-third-eye));
+  }
+  .chakra-crown { 
+    color: rgb(var(--chakra-crown)); 
+    background-color: rgb(var(--chakra-crown));
+  }
+  
+  /* Chakra Container Hover Effects */
+  .chakra-container {
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .chakra-container.chakra-hovered {
+    transform: translateY(5rem);
+  }
+  
+  .chakra-item > div:hover ~ .chakra-tooltip,
+  .chakra-item:hover .chakra-tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-0.5rem);
+  }
+  
+  .chakra-item > div:hover {
+    transform: scale(1.1);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+  
+  .chakra-item > div:hover > div:last-child {
+    opacity: 0.4;
+  }
+
+
+  /* Utility classes */
+  .animate-spin-slow {
+    animation: animate-spin-slow 8s linear infinite;
+  }
+  
+  .animate-fadeInUp {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+  
+  .animate-delay-200 {
+    animation-delay: 0.2s;
+  }
+  
+  .animate-delay-400 {
+    animation-delay: 0.4s;
+  }
+  
+  .animate-delay-600 {
+    animation-delay: 0.6s;
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse-slow 3s ease-in-out infinite;
+  }
+  
+  /* Helvetica Neue Font Weight Utilities */
+  .font-light {
+    font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+    font-weight: 300;
+  }
+  
+  .font-regular {
+    font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+    font-weight: 400;
+  }
+  
+  .font-medium {
+    font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+    font-weight: 500;
+  }
+  
+  .font-bold {
+    font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+    font-weight: 700;
+  }
+  
+  /* UI Element Typography */
+  .text-ui {
+    font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    line-height: 1.3;
+  }
+  
+  .text-light {
+    font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+    font-weight: 300;
+    line-height: 1.4;
+  }
+  
+  /* Chakra Animation Improvements */
+  .chakra-breathe {
+    animation: breathe 4s ease-in-out infinite;
+  }
+  
+  .chakra-glow {
+    animation: gentle-glow 3s ease-in-out infinite;
+  }
+  
+  /* Subtle breathing animation for chakras */
+  @keyframes breathe {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.85;
+    }
+    50% {
+      transform: scale(1.05);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes gentle-glow {
+    0%, 100% {
+      opacity: 0.8;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.9;
+      transform: scale(1.02);
+    }
+  }
+  
+  /* Karma States */
+  .karma-positive { color: rgb(var(--karma-positive)); }
+  .karma-neutral { color: rgb(var(--karma-neutral)); }
+  .karma-negative { color: rgb(var(--karma-negative)); }
+  
+  /* Smooth Transitions */
+  .fade-enter {
+    animation: fade-enter 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .fade-exit {
+    animation: fade-exit 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Old Calendar Styling - Removed to prevent conflicts with Day One style */
+  
+  /* Day One Style Calendar */
+  .dayone-calendar {
+    width: 100%;
+    font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+  }
+  
+  .dayone-calendar .rdp {
+    margin: 0;
+    width: 100%;
+  }
+  
+  .dayone-calendar .rdp-months {
+    width: 100%;
+  }
+  
+  .dayone-calendar .rdp-month {
+    width: 100%;
+    margin: 0;
+  }
+  
+  .dayone-calendar .rdp-caption {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0 16px 0;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 18px;
+    color: rgb(17 24 39);
+  }
+  
+  .dayone-calendar .rdp-caption_label {
+    font-size: 18px;
+    font-weight: 600;
+    color: rgb(17 24 39);
+  }
+  
+  .dayone-calendar .rdp-nav {
+    display: none; /* Hide navigation arrows for multi-month view */
+  }
+  
+  .dayone-calendar .rdp-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+  
+  .dayone-calendar .rdp-head {
+    border-bottom: 1px solid rgb(229 231 235);
+  }
+  
+  .dayone-calendar .rdp-head_cell {
+    font-weight: 500;
+    font-size: 11px;
+    color: rgb(107 114 128);
+    text-align: center;
+    padding: 8px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .dayone-calendar .rdp-tbody .rdp-row {
+    border-bottom: 1px solid rgb(243 244 246);
+  }
+  
+  .dayone-calendar .rdp-cell {
+    text-align: center;
+    padding: 0;
+    width: 14.28%;
+    height: 40px;
+    border-right: 1px solid rgb(243 244 246);
+    position: relative;
+  }
+  
+  .dayone-calendar .rdp-cell:last-child {
+    border-right: none;
+  }
+  
+  .dayone-calendar .rdp-day {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    font-weight: 400;
+    color: rgb(55 65 81);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+  }
+  
+  .dayone-calendar .rdp-day:hover {
+    background-color: rgb(249 250 251);
+  }
+  
+  .dayone-calendar .rdp-day_outside {
+    color: rgb(156 163 175);
+  }
+  
+  .dayone-calendar .rdp-day_today {
+    background-color: transparent !important;
+    color: rgb(55 65 81) !important;
+    font-weight: 600;
+    border: 2px solid rgb(99 102 241) !important;
+    box-sizing: border-box;
+  }
+  
+  .dayone-calendar .rdp-day_selected {
+    background-color: rgb(219 234 254) !important;
+    color: rgb(29 78 216) !important;
+    font-weight: 500;
+  }
+  
+  /* Force override any default calendar styles */
+  .dayone-calendar .rdp-day[aria-selected="true"] {
+    background-color: rgb(219 234 254) !important;
+    color: rgb(29 78 216) !important;
+    font-weight: 500;
+  }
+  
+  .dayone-calendar .rdp-day[data-selected] {
+    background-color: rgb(219 234 254) !important;
+    color: rgb(29 78 216) !important;
+    font-weight: 500;
+  }
+  
+  .dayone-calendar .rdp-day_today.rdp-day_selected {
+    background-color: rgb(219 234 254) !important;
+    color: rgb(29 78 216) !important;
+    border: 2px solid rgb(99 102 241) !important;
+  }
+  
+  /* Journal entry indicators */
+  .dayone-calendar .has-journal-entry::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    background-color: rgb(99 102 241);
+    border-radius: 50%;
+  }
+  
+  .dayone-calendar .rdp-day_today.has-journal-entry::after {
+    background-color: rgb(99 102 241);
+  }
+  
+  /* Nuclear option - override ALL possible calendar text colors */
+  .dayone-calendar .rdp-day,
+  .dayone-calendar .rdp-day *,
+  .dayone-calendar button,
+  .dayone-calendar button * {
+    color: rgb(55 65 81) !important;
+  }
+  
+  .dayone-calendar .rdp-day_selected,
+  .dayone-calendar .rdp-day_selected *,
+  .dayone-calendar .rdp-day[aria-selected="true"],
+  .dayone-calendar .rdp-day[aria-selected="true"] *,
+  .dayone-calendar .rdp-day[data-selected],
+  .dayone-calendar .rdp-day[data-selected] * {
+    color: rgb(29 78 216) !important;
+    background-color: rgb(219 234 254) !important;
+  }
+  
+  .dayone-calendar .rdp-day_today,
+  .dayone-calendar .rdp-day_today *,
+  .dayone-calendar .rdp-day[data-today],
+  .dayone-calendar .rdp-day[data-today] * {
+    color: white !important;
+    background-color: rgb(99 102 241) !important;
+    border: none !important;
+  }
+
+  /* Floating Particles */
+  .floating-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  .particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: rgba(34, 197, 94, 0.3);
+    border-radius: 50%;
+    animation: float-particle 20s linear infinite;
+  }
+  
+  .particle:nth-child(2n) {
+    background: rgba(16, 185, 129, 0.2);
+    animation-duration: 25s;
+  }
+  
+  .particle:nth-child(3n) {
+    background: rgba(5, 150, 105, 0.2);
+    animation-duration: 30s;
+  }
+}
+
+/* Animations */
+@keyframes gradient-shine {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes animate-spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes shine-sweep {
+  0% {
+    left: -100%;
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes gentle-breathing {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.02); opacity: 1; }
+}
+
+@keyframes energy-pulse {
+  0%, 100% { 
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.3);
+    transform: scale(1);
+  }
+  50% { 
+    box-shadow: 0 0 0 8px rgba(34, 197, 94, 0);
+    transform: scale(1.01);
+  }
+}
+
+@keyframes aura-breathing {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.02); }
+}
+
+@keyframes gentle-rotation {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes progress-glow {
+  0%, 100% { filter: drop-shadow(0 0 2px rgba(34, 197, 94, 0.5)); }
+  50% { filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.8)); }
+}
+
+@keyframes fade-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fade-exit {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+}
+
+@keyframes float-particle {
+  0% {
+    transform: translateY(100vh) translateX(0px) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-10vh) translateX(100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes chakra-flow-wave {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  33% {
+    transform: translateY(-8px) scale(1.02);
+  }
+  66% {
+    transform: translateY(4px) scale(0.98);
+  }
+}
+
+@keyframes chakra-body-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 8px rgba(34, 197, 94, 0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* OPAL-Style Scroll Animations */
+@keyframes opal-fill-text {
+  to {
+    --progress: 100%;
+  }
+}
+
+@keyframes opal-parallax-movement {
+  to {
+    transform: translateY(var(--movement));
+  }
+}
+
+/* Wellness Gradient Animations */
+@keyframes wellness-blob {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(20px, -15px) scale(1.05);
+  }
+  50% {
+    transform: translate(-15px, 20px) scale(0.98);
+  }
+  75% {
+    transform: translate(-25px, -10px) scale(1.02);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes wellness-blob-reverse {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(-18px, 12px) scale(0.97);
+  }
+  50% {
+    transform: translate(15px, -20px) scale(1.03);
+  }
+  75% {
+    transform: translate(10px, 15px) scale(0.99);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+/* CSS @property for smooth text reveal animation */
+@property --progress {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+
+/* CSS @property for smooth gradient transitions */
+@property --gradient-color-a {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #f8fafc;
+}
+
+@property --gradient-color-b {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #e2e8f0;
+}
+
+@property --gradient-color-c {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #cbd5e1;
+}
+
+/* OPAL-Style Grid System */
+@layer base {
+  .opal-wrapper {
+    --col-width: 130px;
+    
+    @apply grid w-full gap-2 md:gap-4;
+    grid-template-columns:
+      [full-start]
+      minmax(0, 100%)
+      [wide-start]
+      repeat(2, minmax(0, var(--col-width)))
+      [narrow-start]
+      repeat(8, minmax(0, var(--col-width)))
+      [narrow-end]
+      repeat(2, minmax(0, var(--col-width)))
+      [wide-end]
+      minmax(0, 100%)
+      [full-end];
+  }
+
+  .opal-wrapper > * {
+    grid-column: wide;
+  }
+
+  .opal-wrapper > .full-bleed {
+    grid-column: full;
+  }
+
+  @media (min-width: theme("screens.md")) {
+    .opal-wrapper > * {
+      grid-column: narrow;
+    }
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .breathing-element,
+  .energy-pulse,
+  .karmic-aura::before,
+  .particle,
+  .gradient-text-shine,
+  .gradient-text-shine::before {
+    animation: none;
+  }
+  
+  .gradient-text-shine {
+    background: linear-gradient(90deg, #22c55e 0%, #10b981 50%, #059669 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .wellness-card:hover {
+    transform: none;
+  }
+  
+  .wellness-button:hover {
+    transform: none;
+  }
+  
+  /* Additional reduced motion support for sidebar */
+  .sidebar-container,
+  .sidebar-content,
+  .sidebar-nav-item {
+    transition: none !important;
+  }
+  
+  .mobile-overlay {
+    transition: none !important;
+  }
+  
+  /* Reset for sidebar to ensure styles apply */
+  .sidebar-modern * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* REMOVED - Replaced with nuclear sidebar rule below */
+
+  /* Logo Section */
+  .sidebar-logo {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid var(--sidebar-border);
+    margin-bottom: 8px;
+  }
+
+  .logo-icon {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #22c55e 0%, #10b981 100%);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+
+  .logo-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--sidebar-text-hover);
+    letter-spacing: -0.01em;
+  }
+
+  /* Navigation Section */
+  .sidebar-navigation {
+    flex: 1;
+    padding: 8px 12px;
+    overflow-y: auto;
+  }
+
+  /* Navigation Items */
+  .nav-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 36px;
+    padding: 0 12px;
+    margin-bottom: 4px;
+    border-radius: 6px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all var(--sidebar-transition);
+    position: relative;
+    color: var(--sidebar-text);
+    font-size: 14px;
+    font-weight: 500;
+    text-align: left;
+  }
+
+  .nav-item:hover {
+    background: var(--sidebar-hover-bg);
+    color: var(--sidebar-text-hover);
+  }
+
+  .nav-item.active {
+    background: var(--sidebar-active-bg);
+    color: var(--sidebar-active-text);
+    font-weight: 600;
+  }
+
+  .nav-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 12px;
+    flex-shrink: 0;
+    transition: color var(--sidebar-transition);
+  }
+
+  .nav-text {
+    flex: 1;
+    transition: color var(--sidebar-transition);
+  }
+
+  .nav-indicator {
+    width: 16px;
+    height: 16px;
+    margin-left: auto;
+    opacity: 0;
+    transition: opacity var(--sidebar-transition);
+  }
+
+  .nav-item.active .nav-indicator {
+    opacity: 1;
+  }
+
+  /* User Section */
+  .sidebar-footer {
+    padding: 12px;
+    border-top: 1px solid var(--sidebar-border);
+    margin-top: auto;
+  }
+
+  .user-section {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.02);
+  }
+
+  .user-avatar {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #86efac 0%, #6ee7b7 100%);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: #065f46;
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+
+  .user-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .user-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--sidebar-text-hover);
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .user-role {
+    font-size: 12px;
+    color: var(--sidebar-text);
+    line-height: 1.2;
+  }
+
+  /* Sign Out Button */
+  .nav-item.sign-out {
+    color: #DC2626;
+  }
+
+  .nav-item.sign-out:hover {
+    background: rgba(220, 38, 38, 0.08);
+    color: #B91C1C;
+  }
+
+  .nav-item.sign-out .nav-icon {
+    color: inherit;
+  }
+
+  /* Focus States */
+  .nav-item:focus-visible {
+    outline: 2px solid var(--sidebar-active-text);
+    outline-offset: 2px;
+  }
+
+  /* Active Click State */
+  .nav-item:active {
+    transform: scale(0.98);
+  }
+  
+  /* NUCLEAR SIDEBAR RULE - FORCE OVERRIDE ALL CONFLICTS */
+  .sidebar-modern {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: var(--sidebar-width) !important;
+    height: 100vh !important;
+    background: white !important;
+    border-right: 1px solid #E5E7EB !important;
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    z-index: 999 !important;
+    pointer-events: auto !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+  }
+
+  /* FORCE BUTTON INTERACTIVITY */
+  .sidebar-modern button {
+    pointer-events: auto !important;
+    position: relative !important;
+    z-index: 1000 !important;
+    cursor: pointer !important;
+  }
+
+  .main-content {
+    margin-left: var(--sidebar-width) !important;
+    transition: margin-left var(--sidebar-transition);
+    position: relative !important;
+    z-index: 1 !important;
+  }
+  
+  /* Mobile responsiveness */
+  @media (max-width: 767px) {
+    .sidebar-modern {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      z-index: 50;
+      transform: translateX(-100%);
+      width: var(--sidebar-width) !important;
+      transition: transform var(--sidebar-transition);
+    }
+    
+    .sidebar-modern.mobile-open {
+      transform: translateX(0);
+    }
+    
+    .main-content {
+      margin-left: 0 !important;
+    }
+  }
+
+  /* Move to reduced motion section - these rules are breaking the collapsible functionality */
+}
+
+@layer components {
+  /* OPAL Scroll-Triggered Text Reveal */
+  .opal-reveal-text {
+    --faded-color: #e2e8f0;
+    --highlighted-color: #0f172a;
+    --progress: 0%;
+    background-image: linear-gradient(
+      to right,
+      var(--highlighted-color),
+      var(--highlighted-color) var(--progress),
+      var(--faded-color) var(--progress),
+      var(--faded-color)
+    );
+    background-clip: text;
+    background-repeat: no-repeat;
+    color: transparent;
+    display: inline;
+    animation: opal-fill-text linear both;
+    animation-timeline: --reveal-wrapper;
+    animation-range: entry 200% cover 80%;
+    font-family: 'Helvetica Neue', 'Helvetica', -apple-system, BlinkMacSystemFont, sans-serif !important;
+    font-weight: 300 !important;
+  }
+
+  /* OPAL Parallax Elements */
+  .opal-parallax-element {
+    transform: translateY(0px);
+    animation: opal-parallax-movement linear both;
+    animation-timeline: --parallax-wrapper;
+    animation-range: entry 25% cover 80%;
+  }
+
+  /* OPAL Hero Container */
+  .opal-hero-container {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    view-timeline-name: --hero-wrapper;
+  }
+
+  /* OPAL Scroll-Triggered Section */
+  .opal-scroll-section {
+    min-height: 400vh;
+    view-timeline-name: --reveal-wrapper;
+  }
+
+  .opal-scroll-section .sticky-content {
+    position: sticky;
+    top: 0;
+    display: flex;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Wellness-themed OPAL reveal text */
+  .opal-reveal-text.wellness-theme {
+    --faded-color: #94a3b8;
+    --highlighted-color: #0f172a;
+  }
+
+  /* OPAL Parallax wrapper for elements */
+  .opal-parallax-wrapper {
+    view-timeline-name: --parallax-wrapper;
+  }
+
+  /* Mobile Optimizations for OPAL */
+  @media (max-width: 768px) {
+    .opal-hero-container {
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+
+    .opal-scroll-section {
+      min-height: 200vh; /* Reduced for mobile */
+    }
+
+    .opal-reveal-text {
+      font-size: 2.5rem !important;
+      line-height: 1.2 !important;
+    }
+
+    /* Disable parallax on mobile for performance */
+    .opal-parallax-element {
+      animation: none;
+      transform: none;
+    }
+  }
+
+  /* Fallback for browsers without view-timeline support */
+  @supports not (animation-timeline: --reveal-wrapper) {
+    .opal-reveal-text {
+      background-image: none;
+      color: var(--highlighted-color);
+      animation: none;
+    }
+
+    .opal-parallax-element {
+      animation: none;
+      transform: none;
+    }
+
+    .opal-scroll-section {
+      min-height: auto;
+      padding: 4rem 0;
+    }
+
+    .opal-scroll-section .sticky-content {
+      position: static;
+      min-height: auto;
+    }
+  }
+
+  /* Wellness Gradient Background */
+  .wellness-gradient-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(
+      135deg,
+      var(--gradient-color-a) 0%,
+      var(--gradient-color-b) 50%,
+      var(--gradient-color-c) 100%
+    );
+    /* Static gradient - no color transitions */
+    overflow: hidden;
+  }
+
+  .wellness-gradient-bg::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: 20%;
+    width: 70%;
+    height: 50%;
+    background: linear-gradient(
+      45deg,
+      var(--gradient-color-a),
+      var(--gradient-color-b)
+    );
+    border-radius: 50%;
+    filter: blur(40px) brightness(1.3);
+    opacity: 0.6;
+    animation: wellness-blob 45s infinite ease-in-out;
+    transform-origin: center;
+  }
+
+  .wellness-gradient-bg::after {
+    content: '';
+    position: absolute;
+    top: 30%;
+    right: 15%;
+    width: 60%;
+    height: 70%;
+    background: linear-gradient(
+      -45deg,
+      var(--gradient-color-b),
+      var(--gradient-color-c)
+    );
+    border-radius: 50%;
+    filter: blur(50px) brightness(1.4);
+    opacity: 0.5;
+    animation: wellness-blob-reverse 50s infinite ease-in-out;
+    transform-origin: center;
+  }
+
+  /* Reduced motion support for gradients */
+  @media (prefers-reduced-motion: reduce) {
+    .wellness-gradient-bg {
+      transition: none;
+    }
+    
+    .wellness-gradient-bg::before,
+    .wellness-gradient-bg::after {
+      animation: none;
+      transform: none;
+    }
+  }
+
+  /* Motivational Message Animation */
+  .animate-fade-in-scale {
+    animation: fadeInScale 0.5s ease-out forwards;
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  @keyframes fadeInScale {
+    0% {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
